@@ -29,12 +29,19 @@ const routes=[
     path:"/",
     children:[
       {
+        path:"/user/register",
+        component:()=>import("./User/Register.vue"),
+       },
+      {
         path:"/user/login",
         component:()=>import("./User/Login.vue")
        },{
         path:"/user/profile",
         component:()=>import("./User/Profile.vue"),
         meta: { requiresAuth: true },
+       },{
+        path:"/user/changePassword",
+        component:()=>import("./User/ChangePassword.vue"),
        }
     ]
   },
@@ -46,7 +53,6 @@ const router = createRouter({
 router.beforeResolve((to)=>{
   const online=useUser().online;
   if(to.meta.requiresAuth&&!online){
-    console.log("hello")
     const router=useRouter();
     router.push("/user/login")
     return false

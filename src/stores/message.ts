@@ -1,10 +1,9 @@
-import { defineStore, storeToRefs } from "pinia";
-import { ComputedRef, computed, reactive } from "vue";
-type MessageBox={
-  level:"Error"|"tips"|"info",
-  info:string,
-  color: ComputedRef<"text-red-600" | "text-sky-600" | "text-black-600">
-}
+import { defineStore } from "pinia";
+// type MessageBox={
+//   level:"Error"|"tips"|"info",
+//   info:string,
+//   color: ComputedRef<"text-red-600" | "text-sky-600" | "text-black-600">
+// }
 export  const useMessage=defineStore("useMessage",{
 state:()=>({level:"",info:""}),
 getters:{
