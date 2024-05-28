@@ -1,10 +1,13 @@
 <template>
 
+
 </template>
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
-
-
+// import { onMounted } from 'vue';
+// let odor=ref("");
+// onMounted(()=>{
+    
+// })
 
 </script>
 <style lang="less" scoped>
