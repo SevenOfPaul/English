@@ -14,8 +14,8 @@
 import { reactive,ref } from 'vue';
 import {PreviewOpen,PreviewCloseOne} from "@icon-park/vue-next"
 const emit = defineEmits(['password']);
-let passwordSetting=reactive({show:false,color:"#86efac"});
-let password=ref("123456");
+let passwordSetting=reactive({show:false,color:"#9ca3af"});
+let password=ref("");
 const props = defineProps(['message']);
 </script>
 <style lang="less" scoped>

@@ -1,6 +1,6 @@
 <template>
-<div className="card w-120 bg-base-100 shadow-xl mx-auto flex flex-col items-center p-5 h-75 justify-around">
-    <p className="font-sans font-semibold text-2xl m-3">欢迎来到士刀单词</p>
+<div className="card w-120 bg-base-100 shadow-xl mx-auto flex flex-col items-center p-5 justify-around min-h-100">
+    <p className="font-sans font-semibold text-2xl m-3">欢迎注册士刀单词</p>
     <label className="input input-bordered flex items-center gap-2 w-2/3">
   <input type="text" className="grow m-3 w-full" placeholder="请输入邮箱"  v-model="user.email" />
 </label>
@@ -25,6 +25,7 @@ import validator from "validator"
 import { check } from "../../api";
 import { http } from "../../http";
 import {md5} from "js-md5"
+import { useUser } from "../../stores";
 /*
  **
  * email 3167385363@qq.com
@@ -39,7 +40,9 @@ async function login(){
     key:"password",fn:validator.isByteLength,info:"密码长度必须为6-9",arguments:[{ min: 6, max: 9 }]
   }])){
     //登录成功
-    console.log(await http.post("/user/login",{email:user.email,password:md5(user.password)}));
+    const {resName,token,create_at,picPath}=(await http.post("/user/login",{email:user.email,password:md5(user.password)})).data;
+  const userController=useUser();
+    userController.$patch({online:true,name:resName,create_at,token,pic:picPath})
   }
 }
 </script>

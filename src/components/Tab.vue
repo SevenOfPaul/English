@@ -53,7 +53,6 @@
 import { useRouter } from 'vue-router';
 import {http} from '../http';
 import {  ref } from 'vue';
-import { useUser } from '../stores';
 const router=useRouter();
 
 const tabs = [
@@ -76,8 +75,7 @@ const showTab = true
     console.log(await http.get(`/search/${searchText.value}`))
  }
  function toProfile(){
-  const useId=useUser().id;
-  router.push(`/user/profile/${useId}`);
+  router.push(`/user/profile`);
  }
 </script>
 <style lang="less" scoped>

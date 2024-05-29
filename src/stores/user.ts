@@ -3,11 +3,17 @@ import { defineStore } from "pinia";
 export const useUser = defineStore("useUser", {
   state: () =>({ 
     online:false,
-    id:"",
     name:"",
-    email:"",
-    crate_at:"",
+    create_at:"",
     pic:"",
     token:"",
-  })
+  }),getters:{
+    _setToken:(state)=>{
+      if(state.online){
+        localStorage.setItem("token",state.token)
+      }else{
+        localStorage.clear();
+      }
+    }
+  }
 });

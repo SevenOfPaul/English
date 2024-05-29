@@ -13,7 +13,7 @@ getters:{
      }else if(state.level=="tips"){
      return "text-sky-600"
      }else{
-      return "text-black-600"
+      return "text-black-300"
      }
     }
 }

@@ -17,7 +17,7 @@ import validator from "validator"
 import axios from 'axios';
 
 const emit = defineEmits(['emailAndCode']);
-let user=reactive({email:"g13136918273@gmail.com",verifyCode:""});
+let user=reactive({email:"",verifyCode:""});
 async function sendEmail(){
     if(check(user,[{key:"email",fn:validator.isEmail,info:"请输入正确的邮箱"}])){
         await axios.post("/user/sendMail",{email:user.email});
