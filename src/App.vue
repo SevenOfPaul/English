@@ -11,7 +11,7 @@ import Message from "./components/Message.vue";
 import { Odor } from "./Types";
 
 import {http} from "./http";
-import { useSettings } from "./stores";
+import { useSettings, useUser } from "./stores";
 //需要修改
 let odor = reactive<Odor>({
   assign_date: "",
@@ -21,6 +21,9 @@ let odor = reactive<Odor>({
   imgUrl: "",
 });
 provide("odor",odor);
+(()=>{const html=document.childNodes[1] as HTMLElement;
+   if(useSettings().night.val) html.className="dark"
+   else html.className=""})();
 // document.className="dark";
 useSettings().$subscribe((_,state)=>{
   const html=document.childNodes[1] as HTMLElement;
@@ -34,7 +37,10 @@ onMounted(async () => {
     odor[k] = response[k];
     //@ts-ignore
     if (k == "imgUrl") odor[k] = response["origin_img_urls"][0];
-  }
+  };
+  const userController=useUser();
+  const{name,pic,create_at}= await http.get<{},{name:string,email:string,pic:string,create_at:string}>("/user/getProfile");
+    userController.$patch({name,pic,create_at});
 });
 
 </script>

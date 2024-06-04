@@ -40,7 +40,7 @@
 import axios from "axios";
 import { ref, watch } from "vue";
 import { useSettings } from "../stores";
-const st = useSettings().$state;
+const st = useSettings();
 let text = ref<string>("");
 let result = ref<string>("");
 let showLoad = ref<Boolean>(false);

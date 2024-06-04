@@ -11,11 +11,25 @@ const routes=[
         children: [
          {
           path:"/",
-          component:()=>import("./Home/Word.vue")
+          component:()=>import("./Home/Study.vue")
          },{
-          path:"/book",
-          component:()=>import("./Home/Book.vue")
-         }
+          path:"/books",
+          component:()=>import("./Home/Books.vue")
+         },{
+          path:"/",
+          children:[
+            {
+              path:"/book/words",
+              component:()=>import("./Book/Words.vue"),
+            },
+            {
+              path:"/book/settings",
+              component:()=>import("./Book/Settings.vue"),
+             },{
+              path:"/book/learning",
+              component:()=>import("./Learning.vue")
+            }]
+        }
         ],
       },{
         path: "/transform",
@@ -52,6 +66,7 @@ const router = createRouter({
 });
 router.beforeResolve((to)=>{
   const online=useUser().online;
+  console.log(online)
   if(to.meta.requiresAuth&&!online){
     const router=useRouter();
     router.push("/user/login")

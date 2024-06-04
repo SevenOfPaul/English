@@ -2,18 +2,10 @@ import { defineStore } from "pinia";
 
 export const useUser = defineStore("useUser", {
   state: () =>({ 
-    online:false,
+    online:!!localStorage.getItem("token"),
     name:"",
     create_at:"",
-    pic:"",
-    token:"",
-  }),getters:{
-    _setToken:(state)=>{
-      if(state.online){
-        localStorage.setItem("token",state.token)
-      }else{
-        localStorage.clear();
-      }
-    }
-  }
+    pic:"http://localhost:4320/public/pictures/users/default.jpg",
+    token:localStorage.getItem("token")?localStorage.getItem("token")!:"",
+  })
 });

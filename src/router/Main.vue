@@ -1,7 +1,9 @@
 <template>
  <div className="mb-4 h-max-223 w-3/4  m-auto min-h-100">
             <Tab></Tab>
+            <Transition v-motion-pop>
             <RouterView/>
+          </Transition>
     </div>
     <div className="footer w-full h-60  bg-clip-content relative">
       <div className="absolute top-12 left-20">

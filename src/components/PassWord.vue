@@ -12,10 +12,9 @@
 </template>
 <script setup lang="ts">
 import { reactive,ref } from 'vue';
-import {PreviewOpen,PreviewCloseOne} from "@icon-park/vue-next"
 const emit = defineEmits(['password']);
 let passwordSetting=reactive({show:false,color:"#9ca3af"});
-let password=ref("");
+let password=ref("12345678");
 const props = defineProps(['message']);
 </script>
 <style lang="less" scoped>

@@ -30,9 +30,10 @@ import { reactive, computed } from 'vue';
 import { check, isNotEmpty, isEqual } from '../../api';
 import { http } from '../../http';
 import { useUser } from '../../stores';
+import {useRouter} from "vue-router"
+const router=useRouter();
 const user=reactive({email:"",name:"",newPassword1:"",newPassword2:"",verifyCode:"",pic:""});
 let empty=computed(()=>{
-    console.log(user)
    for(let key in user){
     //@ts-ignore
     if(validator.isEmpty(user[key])){
@@ -61,11 +62,12 @@ async function register(){
 ])){
     //注册账号
     const {email,pic,verifyCode,name}=user;
-      const {resName,token,create_at,picPath}=(await http.post("/user/verify",{email,name,pic,verifyCode,password:md5(user.newPassword1)})).data;
+    //@ts-ignore
+      const {resName,token,create_at,picPath}=await http.post("/user/verify",{email,name,pic,verifyCode,password:md5(user.newPassword1)});
     const userController=useUser();
-    userController.$patch({online:true,name:resName,create_at,token,pic:picPath})
+    userController.$patch({online:true,name:resName,create_at,token,pic:picPath});
   }
-  
+    router.push("/user/profile");
 }
 
 </script>

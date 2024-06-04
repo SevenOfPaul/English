@@ -3,8 +3,9 @@ import { useMessage,useUser } from "../stores";
 let lastTime = new Date().getTime();
 
 axios.interceptors.request.use(async (config) => {
-  if (localStorage.getItem("token")) {
-    const token = `Bearer ${localStorage.getItem("token")}`;
+  const useController=useUser();
+  if (useController.online) {
+    const token = `Bearer ${useController.token}`;
     config.headers.Authorization = token;
   }
   //节流
@@ -27,7 +28,14 @@ axios.interceptors.response.use((config) => {
   if(outer.status=="200"&&outer.data.code==200){
 const message=useMessage();
     if(outer.data.message){
-      message.$patch({level:"info",info:outer.data.message})
+      message.$patch({level:"info",info:outer.data.message});
+      return outer.data;
+    }
+    if(outer.data.data["book"]){
+      outer.data.data["book"].pic=outer.data.data["book"].pic.replace(/\\/g,(_:any,offset:number)=>{
+        return offset==5?"//" : "/"});}
+    if(outer.data.data["pic"]){
+       outer.data.data.pic=outer.data.data.pic.replace(/\\/g,(_:any,offset:number)=>{return offset==5?"//" : "/"});
     }
     return outer.data.data;
   }else{

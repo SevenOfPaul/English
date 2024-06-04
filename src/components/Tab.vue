@@ -28,7 +28,7 @@
               <div className="w-10 rounded-full" @dblclick="toProfile">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="http://localhost:4320/public/pictures/users/default.jpg"
+                  :src="pic"
                 />
               </div>
             </div>
@@ -52,12 +52,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import {http} from '../http';
-import {  ref } from 'vue';
+import {  onMounted, ref } from 'vue';
+import { useUser } from '../stores';
 const router=useRouter();
 
 const tabs = [
   { name: "首页", path: "/" },
-  { name: "单词", path: "/words" },
+  { name: "单词", path: "/" },
   { name: "翻译", path: "transform" },
   { name: "听力", path: "/listen" },
   { name: "短文", path: "/" },
@@ -65,11 +66,12 @@ const tabs = [
 ];
 const showTab = true
   ? [
-      { name: "个人信息", path: "/profile" },
+      { name: "个人信息", path: "/user/profile" },
       { name: "设置", path: "/setting" },
       { name: "退出登录", path: "/logOut" },
     ]
   : [{ name: "登录", path: "/logIn" }];
+  const user=useUser();
  const searchText=ref("");
  async function search(){
     console.log(await http.get(`/search/${searchText.value}`))
@@ -77,6 +79,11 @@ const showTab = true
  function toProfile(){
   router.push(`/user/profile`);
  }
+ const pic=ref("");
+ onMounted(()=>{
+  pic.value=user.pic;
+  console.log(pic)
+ })
 </script>
 <style lang="less" scoped>
 

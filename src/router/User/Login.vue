@@ -26,6 +26,8 @@ import { check } from "../../api";
 import { http } from "../../http";
 import {md5} from "js-md5"
 import { useUser } from "../../stores";
+import {useRouter} from "vue-router"
+const router=useRouter();
 /*
  **
  * email 3167385363@qq.com
@@ -40,9 +42,10 @@ async function login(){
     key:"password",fn:validator.isByteLength,info:"密码长度必须为6-9",arguments:[{ min: 6, max: 9 }]
   }])){
     //登录成功
-    const {resName,token,create_at,picPath}=(await http.post("/user/login",{email:user.email,password:md5(user.password)})).data;
+    const {name,token,create_at,picPath}=(await http.post("/user/login",{email:user.email,password:md5(user.password)})).data;
   const userController=useUser();
-    userController.$patch({online:true,name:resName,create_at,token,pic:picPath})
+    userController.$patch({online:true,name,create_at,token,pic:picPath});
+    router.push("/user/profile");
   }
 }
 </script>
