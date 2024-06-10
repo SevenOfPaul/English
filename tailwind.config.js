@@ -25,6 +25,7 @@ export default {
         "100%":"45.6rem",
         "0.85":"85%",
         "0.15":"15%",
+         "16":"4rem"
       },translate:{
         "center":"-50%"
       },flexGrow:{

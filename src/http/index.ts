@@ -37,7 +37,8 @@ const message=useMessage();
     if(outer.data.data["pic"]){
        outer.data.data.pic=outer.data.data.pic.replace(/\\/g,(_:any,offset:number)=>{return offset==5?"//" : "/"});
     }
-    return outer.data.data;
+    // @ts-ignore
+    return new Promise(resolve=>setTimeout(()=>{resolve(outer.data.data)},250));
   }else{
      const message=useMessage();
      message.$patch({level:"Error",info:outer.data.message})

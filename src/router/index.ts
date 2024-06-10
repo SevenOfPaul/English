@@ -27,7 +27,7 @@ const routes=[
               component:()=>import("./Book/Settings.vue"),
              },{
               path:"/book/learning",
-              component:()=>import("./Learning.vue")
+              component:()=>import("./Book/Learning.vue")
             }]
         }
         ],

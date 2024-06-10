@@ -40,6 +40,7 @@
 import axios from "axios";
 import { ref, watch } from "vue";
 import { useSettings } from "../stores";
+import { http } from "../http";
 const st = useSettings();
 let text = ref<string>("");
 let result = ref<string>("");
@@ -49,7 +50,7 @@ watch(text, async () => {
   if (!st.energy.val) showLoad.value = true;
   //后期修改
   const temp =  (
-    await axios.get(`/transform/${text.value}`, {
+    await http.get(`/transform/${text.value}`, {
       //@ts-ignore
       controller,
       cancelToken: controller.token,

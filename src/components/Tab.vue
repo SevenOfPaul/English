@@ -51,7 +51,7 @@
 </template>
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import {http} from '../http';
+// import {http} from '../http';
 import {  onMounted, ref } from 'vue';
 import { useUser } from '../stores';
 const router=useRouter();
@@ -74,7 +74,7 @@ const showTab = true
   const user=useUser();
  const searchText=ref("");
  async function search(){
-    console.log(await http.get(`/search/${searchText.value}`))
+// const data=await http.get(`/search/${searchText.value}`);
  }
  function toProfile(){
   router.push(`/user/profile`);

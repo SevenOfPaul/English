@@ -45,8 +45,9 @@
         </div>
     </div>
     </div>
-    <p className="absolute right-2 top-1/4 dark:bg-slate-200 bg-green-400 text-white rounded-l-lg p-1 hover:cursor-pointer" 
-    @click="toWords">词表</p>
+    <p className="absolute right-2 top-1/4 dark:bg-slate-200 bg-green-400 text-white rounded-l-lg p-1 hover:cursor-pointer hover:scale-105" 
+    @click="toWords">
+    <book-one theme="outline" size="24" fill="white"/>词表</p>
 </div>
 <div className="flex items-center flex-col">
 <button className="btn w-60 bg-green-300 my-3 text-white text-2xl font-medium dark:bg-slate-300 mx-auto" @click="toLearning">开始学习</button>
@@ -64,14 +65,15 @@ import { computed, inject, onMounted, reactive, ref } from 'vue';
 import { Odor } from '../../Types';
 import { http } from '../../http';
 import { useBookSettings, useSettings } from '../../stores';
+import { BookOne } from '@icon-park/vue-next/';
 import { useRouter } from 'vue-router';
 const router=useRouter();
 const st = useSettings();
 const bst=useBookSettings();
 let book=reactive({_id:"",name:"",pic:"",quantity:0,pro:0,goal:bst.goal,finished:0});
 let load=ref(false);
-let newFinished=ref(0);
-let oldFinished=ref(0);
+let newFinished=ref(bst.newFinished);
+let oldFinished=ref(bst.oldFinished);
 let pointer=computed(()=>{
 return ((book.pro+oldFinished.value+newFinished.value)/book.quantity).toFixed(2)+"%";
 })
@@ -93,8 +95,9 @@ onMounted(async()=>{
     //@ts-ignore
     for(let key in book){book[key]=information.book[key]};
     book.quantity=information.quantity;
-    bst.$patch({bookId:book._id});
+    bst.$patch({bookId:book._id,quantity:book.quantity});
     load.value=false;
+    console.log(information)
 })
 </script>
 <style lang="less" scoped>
