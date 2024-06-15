@@ -1,8 +1,9 @@
 <template>
   <div className="flex flex-row">
 <div className="card w-1/2 bg-base-100 shadow-xl flex flex-row">
-  <div className="card-body">
-    <p className="absolute right-2 top-1/4 dark:bg-slate-200 bg-green-400 text-white rounded-l-lg p-1 hover:cursor-pointer hover:scale-105" 
+  <div className="card-body  dark:bg-slate-300">
+    <p className="absolute right-2 top-1/4
+     dark:bg-slate-300 bg-green-400 text-white rounded-l-lg p-1 hover:cursor-pointer hover:scale-105" 
     @click="toWords">
     <book-one theme="outline" size="24" fill="white"/>词表</p>
     <p className="absolute right-2 bottom-1/4 dark:bg-slate-200 bg-green-400 text-white 
@@ -18,7 +19,7 @@
         <p className="text-3xl font-sans font-bold text-center">{{ book.name }}</p>
        <div>
         <p className="text-xl">
-            预计还有<span className="bg-green-300 dark:bg-slate-200 p-1 rounded">{{ Math.round((book.quantity-book.pro)/book.goal)  }}
+            预计还有<span className="bg-green-300 dark:bg-slate-300 p-1 rounded">{{ Math.round((book.quantity-book.pro)/book.goal)  }}
             </span>天完成</p>
     <label className="mt-10 block">
         已完成{{ pointer }}
@@ -29,8 +30,8 @@
      </div>
   </div>
 </div>
-<div className="card w-1/2 bg-base-100 shadow-xl">
-  <h2 className="card-title m-4">书桌中的单词书</h2>
+<div className="card w-1/2 bg-base-100 shadow-xl dark:bg-slate-300">
+  <h2 className="card-title m-4 ">书桌中的单词书</h2>
 <div className="card-body flex flex-row flex-wrap">
     <div v-for="book in books" className="book text-center text-1xl w-1/4 hover:cursor-pointer relative">
       <img :src="book.pic" className="rounded-sm my-o mx-auto h-2/5"  @click="()=>{changeStudy(book._id)}"/>

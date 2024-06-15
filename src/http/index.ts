@@ -29,7 +29,7 @@ axios.interceptors.response.use((config) => {
 const message=useMessage();
     if(outer.data.message){
       message.$patch({level:"info",info:outer.data.message});
-      return outer.data;
+      return outer.data.data;
     }
     if(outer.data.data["book"]){
       outer.data.data["book"].pic=outer.data.data["book"].pic.replace(/\\/g,(_:any,offset:number)=>{
@@ -41,7 +41,8 @@ const message=useMessage();
     return new Promise(resolve=>setTimeout(()=>{resolve(outer.data.data)},250));
   }else{
      const message=useMessage();
-     message.$patch({level:"Error",info:outer.data.message})
+     message.$patch({level:"Error",info:outer.data.message});
+     return (outer.data.data)
   }
 });
 axios.defaults.baseURL ="http://localhost:4320"

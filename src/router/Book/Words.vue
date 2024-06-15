@@ -31,12 +31,13 @@
             <tr
               className="hover w-1/2 flex flex-row flex-wrap hover:cursor-pointer m-1 max-w-80 "
               v-for="content in show.val" 
+              @dblclick="()=>toWords(content)"
             >
               <td className="font-sans font-bold w-full h-8 truncate">
                 {{ content.word }}
               </td>
-              <td className="h-8 truncate">{{ content.mean }}</td>
-              <td className="h-8 truncate">{{ content.phonetic_symbol }}</td>
+              <td className="h-8 truncate w-3/5">{{ content.mean }}</td>
+              <td className="h-8 truncate w-2/5">{{ content.phonetic_symbol }}</td>
             </tr>
           </tbody>
         </Transition>
@@ -59,6 +60,7 @@ import { onMounted, reactive, ref } from "vue";
 import { http } from "../../http";
 import { useRoute } from "vue-router";
 import {useSettings} from "../../stores/index";
+import router from "..";
 const route = useRoute();
 const { bookId, goal, quantity, pro, number = 10 } = route.query;
 const settingController=useSettings();
@@ -145,6 +147,9 @@ async function getPageData(params: any, show: any) {
   show.quantity = params.quantity as string;
   params.val.push(data);
   animate.value=true;
+}
+function toWords(data:any){
+  router.push({path:"/search", query:{word:JSON.stringify(data)}})
 }
 onMounted(async () => {
   //@ts-ignore

@@ -54,15 +54,16 @@ import { useRouter } from 'vue-router';
 // import {http} from '../http';
 import {  onMounted, ref } from 'vue';
 import { useUser } from '../stores';
+import { http } from '../http';
 const router=useRouter();
 
 const tabs = [
   { name: "首页", path: "/" },
-  { name: "单词", path: "/" },
+  { name: "单词", path: "/content" },
   { name: "翻译", path: "transform" },
   { name: "听力", path: "/listen" },
-  { name: "短文", path: "/" },
-  { name: "社区", path: "/" },
+  { name: "短文", path: "/article" },
+  { name: "社区", path: "/community" },
 ];
 const showTab = true
   ? [
@@ -74,7 +75,8 @@ const showTab = true
   const user=useUser();
  const searchText=ref("");
  async function search(){
-// const data=await http.get(`/search/${searchText.value}`);
+const data=(await http.get(`/search/${searchText.value}`));
+ router.push({path:"/search",query:{word:JSON.stringify(data)}})
  }
  function toProfile(){
   router.push(`/user/profile`);

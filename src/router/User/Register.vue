@@ -35,6 +35,8 @@ const router=useRouter();
 const user=reactive({email:"",name:"",newPassword1:"",newPassword2:"",verifyCode:"",pic:""});
 let empty=computed(()=>{
    for(let key in user){
+     //@ts-ignore
+    console.log("validator.isEmpty(user[key])",user[key])
     //@ts-ignore
     if(validator.isEmpty(user[key])){
         return true
@@ -46,7 +48,8 @@ async function updatePic(event:Event){
     let param = new FormData(); //创建form对象
     //@ts-ignore
         param.append('pic',event.target!.files[0],event.target!.value);
-        user.pic=await http({ url: "/user/addPic", method: "Post", data: param, headers: { 'Content-Type': 'multipart/form-data' } });
+        //不着调为什么没筛
+        user.pic=(await http({ url: "/user/addPic", method: "Post", data: param, headers: { 'Content-Type': 'multipart/form-data' } })).data;
 }
 async function register(){
   if(check(user,[{key:"email",fn:validator.isEmail,info:"邮箱格式错误"},{
@@ -67,7 +70,7 @@ async function register(){
     const userController=useUser();
     userController.$patch({online:true,name:resName,create_at,token,pic:picPath});
   }
-    router.push("/user/profile");
+    router.push("/user/login");
 }
 
 </script>

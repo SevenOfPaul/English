@@ -11,6 +11,7 @@
 </label>
 </template>
 <script setup lang="ts">
+import {PreviewOpen,PreviewCloseOne} from "@icon-park/vue-next"
 import { reactive,ref } from 'vue';
 const emit = defineEmits(['password']);
 let passwordSetting=reactive({show:false,color:"#9ca3af"});

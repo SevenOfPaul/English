@@ -97,7 +97,6 @@ onMounted(async()=>{
     book.quantity=information.quantity;
     bst.$patch({bookId:book._id,quantity:book.quantity});
     load.value=false;
-    console.log(information)
 })
 </script>
 <style lang="less" scoped>

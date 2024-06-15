@@ -20,7 +20,10 @@ const routes=[
           children:[
             {
               path:"/book/words",
-              component:()=>import("./Book/Words.vue"),
+              component:()=>import("./Book/Words.vue")
+            },{
+              path:"/search",
+              component:()=>import("./SearchWord.vue")
             },
             {
               path:"/book/settings",
